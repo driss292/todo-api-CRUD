@@ -21,12 +21,19 @@ router.post("/todos/create", async (req, res) => {
   }
 });
 
+router.put("/todos/complete/:id", async (req, res) => {
+  try {
+    const todo = await Todo.findById(req.params.id);
+    todo.completed = !todo.completed;
+    res.send({ message: "Todo has been completed", result: todo });
+  } catch (error) {
+    res.send({ error: error.message });
+  }
+});
+
 router.put("/todos/update/:id", async (req, res) => {
   try {
-    const updatedTodo = await Todo.findByIdAndUpdate(
-      { _id: req.params.id },
-      req.body
-    );
+    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body);
     res.send({ message: "Todo has been updated", result: updatedTodo });
   } catch (error) {
     res.send({ error: error.message });
