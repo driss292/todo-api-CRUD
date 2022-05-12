@@ -12,7 +12,7 @@ router.get("/todos", async (req, res) => {
   }
 });
 
-router.post("/todo/create", async (req, res) => {
+router.post("/todos/create", async (req, res) => {
   try {
     const newTodo = await new Todo(req.body).save();
     res.send({ message: "Todo has been added", result: newTodo });
@@ -21,19 +21,19 @@ router.post("/todo/create", async (req, res) => {
   }
 });
 
-router.put("/todo/update/:id", async (req, res) => {
+router.put("/todos/update/:id", async (req, res) => {
   try {
-    const updatedTodo = await Todo.findOneAndDelete(
+    const updatedTodo = await Todo.findByIdAndUpdate(
       { _id: req.params.id },
       req.body
     );
-    res.send(updatedTodo);
+    res.send({ message: "Todo has been updated", result: updatedTodo });
   } catch (error) {
     res.send({ error: error.message });
   }
 });
 
-router.post("/todo/delete/:id", async (req, res) => {
+router.post("/todos/delete/:id", async (req, res) => {
   try {
     const todo = await Todo.findByIdAndDelete(req.params.id);
 
