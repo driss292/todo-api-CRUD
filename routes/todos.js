@@ -5,7 +5,7 @@ const Todo = require("../models/Todo");
 
 router.get("/todos", async (req, res) => {
   try {
-    const todos = await Todo.find();
+    const todos = await Todo.find().sort();
     res.send(todos);
   } catch (error) {
     res.send({ error: message.error });
@@ -23,7 +23,7 @@ router.post("/todos/create", async (req, res) => {
 
 router.put("/todos/complete/:id", async (req, res) => {
   try {
-    const todo = await Todo.findById(req.params.id);
+    const todo = await Todo.findById(req.params.id, req.body);
     todo.completed = !todo.completed;
     res.send({ message: "Todo has been completed", result: todo });
   } catch (error) {
