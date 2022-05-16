@@ -23,7 +23,7 @@ router.post("/todos/create", async (req, res) => {
 
 router.put("/todos/complete/:id", async (req, res) => {
   try {
-    const todo = await Todo.findById(req.params.id, req.body);
+    const todo = await Todo.findByIdAndUpdate(req.params.id, req.body);
     todo.completed = !todo.completed;
     res.send({ message: "Todo has been completed", result: todo });
   } catch (error) {

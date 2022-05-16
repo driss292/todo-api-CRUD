@@ -3,7 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const colors = require("colors");
-mongoose.connect("mongodb://localhost/todo-list");
+mongoose.connect(process.env.MONGODB_URI);
+// "mongodb://localhost/todo-list"
 
 const app = express();
 app.use(express.json());
